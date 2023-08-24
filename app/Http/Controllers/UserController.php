@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace App\Http\Controllers;
 
+use Faker\Factory;
 use Illuminate\Http\Request;
 
 class UserController extends Controller {
@@ -14,8 +15,19 @@ class UserController extends Controller {
 
     public function show(int $userId){
 
+        $faker = Factory::create();
+        $user = [
+            'id' => $userId,
+            'name'=> $faker->name,
+            'firstName' => $faker->firstName(),
+            'lastName' => $faker->lastName(),
+            'city' => $faker->city,
+            'age' => $faker->numberBetween(12,40),
+            'html' => '<b>Bold HTML</b>'
+        ];
 
-        return view('user.show', ['id' => $userId, 'example' => 'example']);
+
+        return view('user.show', ['user' => $user]);
     }
 
 
