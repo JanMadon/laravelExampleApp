@@ -27,7 +27,7 @@ class UserController extends Controller {
         ];
 
 
-        return view('user.show', ['user' => $user]);
+        return view('user.show', ['user' => $user, 'nick' => "cos"]);
     }
 
 
