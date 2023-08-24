@@ -127,4 +127,5 @@ Route::get('/', function () {
     // Route::get('/users/{userId}', 'UserController@testBlade')
     // ->name('get.users.test');
 
-    Route::get('users/{userId}', 'UserController@show');
+    Route::get('users/{userId}', 'UserController@show')
+    ->name('get.user.show');

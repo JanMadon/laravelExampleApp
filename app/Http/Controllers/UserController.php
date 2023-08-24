@@ -10,7 +10,22 @@ class UserController extends Controller {
 
     public function list(Request $request) {
 
-        return view('user.list');
+        $users = [];
+
+        $faker = Factory::create();
+        $count = $faker->numberBetween(3,15); // losowanie liczby userow w systemie;
+
+        for($i=0; $i<$count; $i++) {
+            $users[] = [
+                'id' => $faker->numberBetween(1,1000),
+                'name' => $faker->firstName
+            ];
+        }
+
+        return view('user.list',[
+             'users' => $users
+            // 'users' => []
+        ]);
     }
 
     public function show(int $userId){

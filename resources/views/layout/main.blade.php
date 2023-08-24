@@ -7,13 +7,13 @@
 
     <title>
         {{-- Application: {{$appBladeName}} --}}
-        @yield('title', $appBladeName) 
+        @yield('title', $appBladeName)
     </title>
 
 
     <style>
         td {
-            padding-right: 15px;
+            padding-right: 25px;
         }
     </style>
 </head>
@@ -25,6 +25,7 @@
             <li><a href="#">...</a></li>
         @show
     </div>
+    <hr>
 
     <div class="container">
         @yield('content')
