@@ -24,7 +24,7 @@ class UserController extends Controller {
 
         return view('user.list',[
              'users' => $users
-            // 'users' => []
+            //  'users' => []
         ]);
     }
 
