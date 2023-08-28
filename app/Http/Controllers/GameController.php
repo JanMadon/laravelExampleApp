@@ -12,9 +12,9 @@ class GameController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index() // zwraca listing gier
     {
-       
+
         return view('game.index');
 
     }
@@ -39,7 +39,7 @@ class GameController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id) //prezentowane sa dzczegoly kontretnej gry
     {
         return view('game.show');
 
@@ -74,5 +74,5 @@ class GameController extends Controller
         return 'tupa';
     }
 
-    
+
 }

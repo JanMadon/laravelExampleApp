@@ -15,7 +15,7 @@
     @guest
         przeciwieństwo do auth
     @endguest
-    
+
     <ul>
         <li>Id: {{$user['id']}}</li>
         <li>Imię: {{$user['firstName']}}</li>

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller {
 
     public function list(Request $request) {
-
+            dump('cokolwiek');
         $users = [];
 
         $faker = Factory::create();
@@ -23,7 +23,7 @@ class UserController extends Controller {
         }
 
         return view('user.list',[
-             'users' => $users
+              'users' => $users
             //  'users' => []
         ]);
     }
