@@ -20,6 +20,9 @@ use Illuminate\Support\Facades\Route;
     //Lekcja >>> kozystanie z template boodstrapa
 
 //homepage
+Route::get('/test', 'Test\TestController')
+    ->name('get.test');
+    
 Route::get('/', function () {
     return view('home.main');
 });
@@ -28,6 +31,8 @@ Route::get('/users', 'UserController@list');
 
 Route::get('/{userId}', 'UserController@show')
     ->name('get.user.show');
+
+
 
     // lekcja 1 - ROUTING:
  /*
