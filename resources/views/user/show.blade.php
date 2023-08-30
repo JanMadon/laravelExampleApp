@@ -1,20 +1,8 @@
 @extends('layout.main')
 
-@section('title', 'Użytkownik')
 
-@section('content')
+@section('contentMain')
 
-    <hr>
-    <h3>Informacje o urzytkowniku:</h3>
-
-    @auth
-        informuje czy użytkownik jest zalogowany
-        (wchodzimy wtedy w tą sekcje kodu)
-    @endauth
-
-    @guest
-        przeciwieństwo do auth
-    @endguest
 
     <ul>
         <li>Id: {{$user['id']}}</li>
@@ -31,23 +19,6 @@
             @endif
         </li>
     </ul>
-    <hr>
-    {{-- gdy tylko isnieje taka zmienna to jest true nawt gry jest pusta --}}
-        @isset($nick)
-            ISSET -> jest prawdą
-        @else
-            ISSET -> jest fałszem
-        @endisset
-
-    <hr>
-    {{-- gdy coś zawiera jest fałszem --}}
-        @empty($nick)
-            EMPTY ->jest prawdą
-        @else
-            EMPTY ->jest fałszem
-        @endempty
-
-
 
 
 @endsection

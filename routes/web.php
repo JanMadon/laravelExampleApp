@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,9 +13,22 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+    //Lekcja >>> kozystanie z template boodstrapa
+
+//homepage
 Route::get('/', function () {
-    return view('welcome');
+    return view('home.main');
 });
+
+Route::get('/users', 'UserController@list');
+
+Route::get('/{userId}', 'UserController@show')
+    ->name('get.user.show');
+
     // lekcja 1 - ROUTING:
  /*
         Route::get('/', function () {
@@ -87,7 +101,7 @@ Route::get('/', function () {
 
     */
 
-
+/*
     // lekcja 2 - Controller
 
     Route::get('users', 'UserController@list')
@@ -129,3 +143,5 @@ Route::get('/', function () {
 
     Route::get('users/{userId}', 'UserController@show')
     ->name('get.user.show');
+
+*/

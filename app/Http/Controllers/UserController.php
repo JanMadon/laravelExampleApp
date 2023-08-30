@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller {
 
     public function list(Request $request) {
-            dump('cokolwiek');
+           // dump('cokolwiek');
         $users = [];
 
         $faker = Factory::create();
