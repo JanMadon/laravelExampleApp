@@ -22,13 +22,41 @@ class UserController extends Controller {
             ];
         }
 
+
+        $session = $request->session();
+        $session->put('prevAction', __METHOD__ . ':' . time());
+        //dd($session);
+
+        $session->flash('flashTestParam', 'bylem tu i mnie nie ma'); // istnieje tylko do
+        // koncz nastepnego requestu, przydatny do wyswietlenia komunikatu rzytkownikowi
+
         return view('user.list',[
               'users' => $users
             //  'users' => []
         ]);
     }
 
-    public function show(int $userId){
+    public function show(Request $request, int $userId){
+
+        $prevAction = $request->session()->get('prevAction');
+        dump($prevAction);
+
+         $request->session()->put('test_tt', null);
+
+        dump($request->session()->has('test_tt')); // sprawdza czy isnieje i jego wartość ALE:
+        // null -> false <- natomiast inne juz true np. dla  'false' jest true
+        dump($request->session()->exists('test_tt')); // tylko sprzwdza czy insteje
+
+        $request->session()->forget('test_tt'); // usówa dany klucz wraz z wartoscia sesji
+        dump($request->session()->exists('test_tt'));
+
+        dump($request->session());
+        $request->session()->flush(); // usówa czałą wartość sesji
+        dump($request->session());
+
+        dump($request->session()->get('flashTestParam')); // nie wiem dlaczego jest null
+        // może przez route?
+        dd('end');
 
         $faker = Factory::create();
         $user = [
