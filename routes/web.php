@@ -22,10 +22,12 @@ use Illuminate\Support\Facades\Route;
 //homepage
 Route::get('/test', 'Test\TestController')
     ->name('get.test');
-    
+
 Route::get('/', function () {
     return view('home.main');
 });
+
+Route::get('/main', 'HOME\MainPage');
 
 Route::get('/users', 'UserController@list');
 

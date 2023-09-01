@@ -34,7 +34,7 @@ class UserController extends Controller {
 
          $announcement = $faker->numberBetween(0,1);
          dump($announcement);
-         $request->session()->flash('message', $announcement);
+         //$request->session()->flash('message', $announcement);
 
 
         return view('user.list',[
