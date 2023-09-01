@@ -10,8 +10,8 @@ class MainPage extends Controller {
     public function __invoke()
     {
 
-        $db = \DB::connection()->getPdo(); // natywny obiekt php PDO
-        dd($db);
+        // $db = \DB::connection()->getPdo(); // natywny obiekt php PDO
+        // dd($db);
 
         $connfig = config('app.name');
 
