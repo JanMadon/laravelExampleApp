@@ -9,8 +9,14 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class MainPage extends Controller {
+    
     public function __invoke()
     {
+
+
+
+        return view('home.main');
+
 
         // DB::connection()->getPdo(); // natywny obiekt php PDO
 
@@ -94,7 +100,7 @@ class MainPage extends Controller {
 
         $connfig = config('app.name');
 
-        return view('home.main');
+        // return view('home.main');
     }
 }
 

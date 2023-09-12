@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -18,5 +20,13 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        // te seedy bedą odpalane:
+        $this->call(
+            [GenresSeeder::class,
+             GamesSeeder::class]); //php artisan db:seed
+
+            //  jeśli chemy tylko pojedyczgo seeda
+            //  php artisan db:seed --class GameSeeder
     }
 }
