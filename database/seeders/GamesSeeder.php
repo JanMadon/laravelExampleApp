@@ -21,13 +21,14 @@ class GamesSeeder extends Seeder
 
        // to trwa ok. 0,3s bo jedno wielkie zapytanie
         $games = [];
-        for($i=0; $i<5000; $i++) {
+        for($i=0; $i<100; $i++) {
             $game =
             [
                 'title'=> $faker->words($faker->numberBetween(1,3), true),
                 'dexcription'=> $faker->sentence,
                 'publisher'=> $faker->randomElement(['Atari', 'EA', 'Ubisoft', 'RockStar', 'CD_Project', 'Sony']),
                 'genre_id'=> $faker->numberBetween(1,5),
+                 'score' => $faker->numberBetween(1,100),
                 'created_at'=> Carbon::now(),
                 'updated_at'=>Carbon::now()
             ];

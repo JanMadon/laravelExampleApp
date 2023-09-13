@@ -29,10 +29,18 @@ Route::get('/', function () {
 
 Route::get('/main', 'HOME\MainPage');
 
-Route::get('/users', 'UserController@list');
+Route::get('/users', 'UserController@list')
+    ->name('get.users');
+
+Route::get('/games', "GameController@index" )
+    ->name('get.games');
+
+Route::get('/games/{gameId}', 'GameController@show')
+    ->name('get.game');
 
 Route::get('/{userId}', 'UserController@show')
-    ->name('get.user.show');
+->name('get.user.show');
+
 
 
 
