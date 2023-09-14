@@ -19,11 +19,18 @@ class GameController extends Controller
     public function index(): View // zwraca listing gier
     {
 
+    // $games = DB::table('games')
+    //  ->select(['id','title', 'score', 'genre_id']) //pobieramy tylko te kolumny
+    // ->get();
+
     $games = DB::table('games')
-     ->select(['id','title', 'score', 'genre_id']) //pobieramy tylko te kolumny
+    ->join('genres', 'games.genre_id', '=', 'genres.id')
+     ->select(['games.id','games.title', 'games.score', 'games.genre_id',
+                'genres.name as genres_name',
+     ]) //pobieramy tylko te kolumny
     ->get();
 
-    $maxScore = DB::table('games')->max('score'); // maksymalna wartość kolumny score
+
 
 
     $stats = [

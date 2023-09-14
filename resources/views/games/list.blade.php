@@ -40,7 +40,7 @@
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$game->title}}</td>
                                 <td>{{$game->score}}</td>
-                                <td>{{$game->genre_id}}</td>
+                                <td>{{$game->genres_name}}</td>
                                 <td>
                                     <a href="{{ route('get.game', ['gameId' => $game->id])}}">Szczeguły</a>
                                 </td>
