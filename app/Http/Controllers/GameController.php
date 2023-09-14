@@ -22,9 +22,22 @@ class GameController extends Controller
     $games = DB::table('games')
      ->select(['id','title', 'score', 'genre_id']) //pobieramy tylko te kolumny
     ->get();
-        //   dd($games);
+
+    $maxScore = DB::table('games')->max('score'); // maksymalna wartość kolumny score
+
+
+    $stats = [
+        'count' => Db::table('games')->count(),
+        'countScoreGTFive' => Db::table('games')->where('score', '>=', 5)->count(),
+        'max' => DB::table('games')->max('score'),
+        'min' => DB::table('games')->min('score'),
+        'avg' => DB::table('games')->avg('score')
+    ];
+    dump($stats);
+
        return view('games.list', [
-            'games' => $games
+            'games' => $games,
+            'stats' => $stats
        ]);
     }
 

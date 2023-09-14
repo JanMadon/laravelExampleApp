@@ -2,6 +2,14 @@
 
 @section('contentMain')
 
+    <div>
+        <p>liczba gier: </p> <p style="color: blue">{{$stats['count']}} </p>
+        <p>liczba gier: 5+:</p> <p style="color: blue">{{$stats['countScoreGTFive']}} </p>
+        <p>Srednia ocena: </p> <p style="color: blue">{{$stats['avg']}} </p>
+        <p>max ocena:</p> <p style="color: blue">{{$stats['max']}} </p>
+        <p>min ocena:</p> <p style="color: blue">{{$stats['min']}} </p>
+    </div>
+
     <div class="row mt-3">
         <div class="card">
             <div class="card-header"><i class="fas fa-table mr-1"></i></div>
