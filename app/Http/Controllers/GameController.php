@@ -24,13 +24,47 @@ class GameController extends Controller
     // ->get();
 
     $games = DB::table('games')
-    ->join('genres', 'games.genre_id', '=', 'genres.id')
-     ->select(['games.id','games.title', 'games.score', 'games.genre_id',
-                'genres.name as genres_name',
-     ]) //pobieramy tylko te kolumny
-    ->get();
+                ->join('genres', 'games.genre_id', '=', 'genres.id')
+                ->select(['games.id','games.title', 'games.score', 'games.genre_id',
+                            'genres.name as genres_name',
+                        ])
+            ->get();
+
+    $bestGames = DB::table('games')
+                ->join('genres', 'games.genre_id', '=', 'genres.id')
+                ->select(['games.id','games.title', 'games.score', 'games.genre_id',
+                            'genres.name as genres_name',
+                         ])
+                ->where('score', '>', 95);
+                // ->where('score', 95) // defolt '='
+                // ->get();
+
+    // dd($bestGames->toSql()); // ale musisz wykonać na obiekcie Builder (czyli bez ->get());
+
+    $query = DB::table('game')
+                -> select('id', 'title', 'score', 'genre_id')
+                ->where(
+                            ['id', '>', 65],
+                            ['score','<',45 ] // to jest jak AND
+                        );
 
 
+    $query = DB::table('game')
+                -> select('id', 'title', 'score', 'genre_id')
+                ->where('id', '>', 65)
+                ->orWhere('score', '>', 65);  // to jest jak OR
+
+    $query = DB::table('game')
+                -> select('id', 'title', 'score', 'genre_id') //Posziędzy
+                ->whereBetween('id',[12, 18]);
+
+    // $query = DB::table('game')
+    //             -> select('id', 'title', 'score', 'genre_id') 
+    //             ->whereBetweenColumns('id',[12, 18]);
+
+
+
+    dd($query->toSql());
 
 
     $stats = [
@@ -44,6 +78,7 @@ class GameController extends Controller
 
        return view('games.list', [
             'games' => $games,
+            'bestGames' => $bestGames,
             'stats' => $stats
        ]);
     }

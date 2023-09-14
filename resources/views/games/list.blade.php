@@ -10,6 +10,53 @@
         <p>min ocena:</p> <p style="color: blue">{{$stats['min']}} </p>
     </div>
 
+    <hr>
+    <h3>BestGames:</h3>
+    <div class="row mt-3">
+        <div class="card">
+            <div class="card-header"><i class="fas fa-table mr-1"></i></div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Lp</th>
+                                <th>Tytuł</th>
+                                <th>Ocena</th>
+                                <th>Kategoria</th>
+                                <th>Opcje</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Lp</th>
+                            <th>Tytuł</th>
+                            <th>Ocena</th>
+                            <th>Kategoria</th>
+                            <th>Opcje</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach ($bestGames as $bestgame)
+                            <tr>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$bestgame->title}}</td>
+                                <td>{{$bestgame->score}}</td>
+                                <td>{{$bestgame->genres_name}}</td>
+                                <td>
+                                    <a href="{{ route('get.game', ['gameId' => $bestgame->id])}}">Szczeguły</a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <h3>Lista gier:</h3>
     <div class="row mt-3">
         <div class="card">
             <div class="card-header"><i class="fas fa-table mr-1"></i></div>
