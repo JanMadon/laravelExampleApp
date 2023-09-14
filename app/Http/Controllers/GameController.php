@@ -28,16 +28,19 @@ class GameController extends Controller
                 ->select(['games.id','games.title', 'games.score', 'games.genre_id',
                             'genres.name as genres_name',
                         ])
-            ->get();
+                // ->orderBy('score', 'desc') // sortowanie po score malejąco defoltowo jest asc - rosnąco
+                // ->orderByDesc('score')        // zadziała tak samo
+                ->get();
+
 
     $bestGames = DB::table('games')
                 ->join('genres', 'games.genre_id', '=', 'genres.id')
                 ->select(['games.id','games.title', 'games.score', 'games.genre_id',
                             'genres.name as genres_name',
                          ])
-                ->where('score', '>', 95);
+                ->where('score', '>', 95)
                 // ->where('score', 95) // defolt '='
-                // ->get();
+                ->get();
 
     // dd($bestGames->toSql()); // ale musisz wykonać na obiekcie Builder (czyli bez ->get());
 
@@ -55,16 +58,16 @@ class GameController extends Controller
                 ->orWhere('score', '>', 65);  // to jest jak OR
 
     $query = DB::table('game')
-                -> select('id', 'title', 'score', 'genre_id') //Posziędzy
+                ->select('id', 'title', 'score', 'genre_id') //Posziędzy
                 ->whereBetween('id',[12, 18]);
 
     // $query = DB::table('game')
-    //             -> select('id', 'title', 'score', 'genre_id') 
+    //             -> select('id', 'title', 'score', 'genre_id')
     //             ->whereBetweenColumns('id',[12, 18]);
 
 
 
-    dd($query->toSql());
+    // dd($query->toSql()); // przydaje się do wyswietlenia zapytania (bez ->get())
 
 
     $stats = [
@@ -74,12 +77,22 @@ class GameController extends Controller
         'min' => DB::table('games')->min('score'),
         'avg' => DB::table('games')->avg('score')
     ];
-    dump($stats);
+
+    $scoreStats = DB::table('games')
+            -> select(DB::raw('count(*) as count'),'score') // ile gier ma dany score
+            -> having('count','>', 10) // having działa podobnie do where tylko wyciąga wyniki po zgrupowaniu(where przed)
+            // w przypadku kolumny count nie można użyć where bo nie ma tej kolumny na początku (wher narpiew odcina i pózniej dzieje się reszta)
+            -> groupBy('score') // grupowanie
+            -> orderBy('score','desc')
+            -> get();
+
+    dump($scoreStats);
 
        return view('games.list', [
             'games' => $games,
             'bestGames' => $bestGames,
-            'stats' => $stats
+            'stats' => $stats,
+            'scoreStats' => $scoreStats
        ]);
     }
 

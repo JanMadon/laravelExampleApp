@@ -9,7 +9,32 @@
         <p>max ocena:</p> <p style="color: blue">{{$stats['max']}} </p>
         <p>min ocena:</p> <p style="color: blue">{{$stats['min']}} </p>
     </div>
+    <hr>
+    <div class="card">
+        <div class="card-header"><i class="fas fa-table mr-1"></i>Statystkyki gier</div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Ocena</th>
+                            <th>Liczba gier z daną oceną</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($scoreStats as $scoreStat)
+                        <tr>
+                            <td>{{$scoreStat->score}}</td>
+                            <td>{{$scoreStat->count}}</td>
+                        </tr>
 
+                        @endforeach
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
     <hr>
     <h3>BestGames:</h3>
     <div class="row mt-3">
