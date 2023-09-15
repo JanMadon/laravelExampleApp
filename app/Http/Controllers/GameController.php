@@ -30,7 +30,11 @@ class GameController extends Controller
                         ])
                 // ->orderBy('score', 'desc') // sortowanie po score malejąco defoltowo jest asc - rosnąco
                 // ->orderByDesc('score')        // zadziała tak samo
-                ->get();
+                ->limit(4) // limituje do 2 gier
+                ->offset(2); // odsuniecie o 2
+                // ->get();
+
+                dd($games->toSql());
 
 
     $bestGames = DB::table('games')
@@ -38,7 +42,7 @@ class GameController extends Controller
                 ->select(['games.id','games.title', 'games.score', 'games.genre_id',
                             'genres.name as genres_name',
                          ])
-                ->where('score', '>', 95)
+                ->where('score', '>=', 9)
                 // ->where('score', 95) // defolt '='
                 ->get();
 
