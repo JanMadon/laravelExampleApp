@@ -32,14 +32,20 @@ Route::get('/main', 'HOME\MainPage');
 Route::get('/users', 'UserController@list')
     ->name('get.users');
 
+    Route::get('/users/{userId}', 'UserController@show')
+    ->name('get.user.show');
+
 Route::get('/games', "GameController@index" )
     ->name('get.games');
+
+
+Route::get('games/dashboard', 'GameController@dashboard')
+    ->name('get.dashboard');
 
 Route::get('/games/{gameId}', 'GameController@show')
     ->name('get.game');
 
-Route::get('/{userId}', 'UserController@show')
-->name('get.user.show');
+
 
 
 

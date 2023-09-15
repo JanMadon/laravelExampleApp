@@ -13,10 +13,24 @@ use Illuminate\Support\Facades\DB;
 // tzw. controller CRUD create, read, update, delete
 class GameController extends Controller
 {
+
+    public function index(): View {
+
+        $games = DB::table('games')
+                ->join('genres', 'games.genre_id', '=', 'genres.id')
+                ->select(['games.id','games.title', 'games.score', 'games.genre_id',
+                            'genres.name as genres_name',
+                        ])
+                ->get();
+
+        return view('games.list', ['games' => $games]);
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index(): View // zwraca listing gier
+
+
+    public function dashboard(): View // zwraca listing gier
     {
 
     // $games = DB::table('games')
@@ -31,10 +45,10 @@ class GameController extends Controller
                 // ->orderBy('score', 'desc') // sortowanie po score malejąco defoltowo jest asc - rosnąco
                 // ->orderByDesc('score')        // zadziała tak samo
                 ->limit(4) // limituje do 2 gier
-                ->offset(2); // odsuniecie o 2
-                // ->get();
+                ->offset(2) // odsuniecie o 2
+                ->get();
 
-                dd($games->toSql());
+                // dd($games->toSql());
 
 
     $bestGames = DB::table('games')
@@ -90,9 +104,9 @@ class GameController extends Controller
             -> orderBy('score','desc')
             -> get();
 
-    dump($scoreStats);
+    // dump($scoreStats);
 
-       return view('games.list', [
+       return view('games.dashboard', [
             'games' => $games,
             'bestGames' => $bestGames,
             'stats' => $stats,
