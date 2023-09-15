@@ -11,6 +11,7 @@
                         <thead>
                             <tr>
                                 <th>Lp</th>
+                                <th>Id</th>
                                 <th>Tytuł</th>
                                 <th>Ocena</th>
                                 <th>Kategoria</th>
@@ -18,18 +19,20 @@
                             </tr>
                         </thead>
                         <tfoot>
-                        <tr>
-                            <th>Lp</th>
-                            <th>Tytuł</th>
-                            <th>Ocena</th>
-                            <th>Kategoria</th>
-                            <th>Opcje</th>
-                        </tr>
+                            <tr>
+                                <th>Id</th>
+                                <th>Lp</th>
+                                <th>Tytuł</th>
+                                <th>Ocena</th>
+                                <th>Kategoria</th>
+                                <th>Opcje</th>
+                            </tr>
                         </tfoot>
                         <tbody>
                             @foreach ($games as $game)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
+                                <td>{{$game->id}}</td>
                                 <td>{{$game->title}}</td>
                                 <td>{{$game->score}}</td>
                                 <td>{{$game->genres_name}}</td>
@@ -41,9 +44,12 @@
                         </tbody>
                     </table>
                 </div>
+                    {{$games->links('vendor.myPaginator.myPaginator')}}
+                    {{-- z wymuszeniem odpowiedniego szbllonu --}}
             </div>
         </div>
     </div>
+
 
 @endsection
 

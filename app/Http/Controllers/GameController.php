@@ -21,7 +21,11 @@ class GameController extends Controller
                 ->select(['games.id','games.title', 'games.score', 'games.genre_id',
                             'genres.name as genres_name',
                         ])
-                ->get();
+                // ->orderBy('games.score')
+                //->simplePaginate(10);// lub paginate() dzieli liste na strony w wydoku wyświetlamy za pomocą {{$games->links()}} i tyle
+                ->paginate(20);
+
+                // dd($games);
 
         return view('games.list', ['games' => $games]);
     }
