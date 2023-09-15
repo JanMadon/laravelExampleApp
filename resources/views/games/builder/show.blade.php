@@ -20,7 +20,7 @@ cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
                 <li>Kategoria: {{ $game['genre_id'] }}</li>
             </ul>
 
-            <a href="{{ route('get.games')}}"> Lista gier </a>
+            <a href="{{ route('games.b.list')}}"> Lista gier </a>
         </div>
 
 

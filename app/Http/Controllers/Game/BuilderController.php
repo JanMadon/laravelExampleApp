@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Game;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 //php artisan make:controller GameController --resource
 // tzw. controller CRUD create, read, update, delete
-class GameController extends Controller
+class BuilderController extends Controller
 {
 
     public function index(): View {
@@ -23,11 +23,11 @@ class GameController extends Controller
                         ])
                 // ->orderBy('games.score')
                 //->simplePaginate(10);// lub paginate() dzieli liste na strony w wydoku wyświetlamy za pomocą {{$games->links()}} i tyle
-                ->paginate(20);
+                ->paginate(10);
 
                 // dd($games);
 
-        return view('games.list', ['games' => $games]);
+        return view('games.builder.list', ['games' => $games]);
     }
     /**
      * Display a listing of the resource.
@@ -110,7 +110,7 @@ class GameController extends Controller
 
     // dump($scoreStats);
 
-       return view('games.dashboard', [
+       return view('games.builder.dashboard', [
             'games' => $games,
             'bestGames' => $bestGames,
             'stats' => $stats,
@@ -126,7 +126,7 @@ class GameController extends Controller
 
         // dd($game->toArray()); // zutowanie na tablice ale tylko dla sposobu pierwszego.
         // dd((array) $game);
-        return view('games.show', ['game' => (array) $game]);
+        return view('games.builder.show', ['game' => (array) $game]);
     }
 
     /**

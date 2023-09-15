@@ -69,7 +69,7 @@
                                 <td>{{$bestgame->score}}</td>
                                 <td>{{$bestgame->genres_name}}</td>
                                 <td>
-                                    <a href="{{ route('get.game', ['gameId' => $bestgame->id])}}">Szczeguły</a>
+                                    <a href="{{ route('games.e.show', ['gameId' => $bestgame->id])}}">Szczeguły</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -114,7 +114,7 @@
                                 <td>{{$game->score}}</td>
                                 <td>{{$game->genres_name}}</td>
                                 <td>
-                                    <a href="{{ route('get.game', ['gameId' => $game->id])}}">Szczeguły</a>
+                                    <a href="{{ route('games.e.show', ['gameId' => $game->id])}}">Szczeguły</a>
                                 </td>
                             </tr>
                             @endforeach

@@ -29,21 +29,46 @@ Route::get('/', function () {
 
 Route::get('/main', 'HOME\MainPage');
 
+// USERS
 Route::get('/users', 'UserController@list')
     ->name('get.users');
 
-    Route::get('/users/{userId}', 'UserController@show')
+Route::get('/users/{userId}', 'UserController@show')
     ->name('get.user.show');
 
-Route::get('/games', "GameController@index" )
-    ->name('get.games');
+// GAMES queryBilder
+Route::group([
+                'prefix' => 'b/games',
+                'namespace' => 'Game',
+                'as' => 'games.b.'
+            ], function() { // grupowanie i dodawanie prefiksu
 
+    Route::get('dashboard', 'BuilderController@dashboard')
+        ->name('dashboard');
 
-Route::get('games/dashboard', 'GameController@dashboard')
-    ->name('get.dashboard');
+    Route::get('', "BuilderController@index" )
+        ->name('list');
 
-Route::get('/games/{gameId}', 'GameController@show')
-    ->name('get.game');
+    Route::get('{gameId}', 'BuilderController@show')
+        ->name('show');
+});
+
+// GAMES eloguent
+Route::group([
+                'prefix' => 'e/games',
+                'namespace' => 'Game',
+                'as' => 'games.e.'
+            ], function() {
+
+    Route::get('dashboard', 'EloquentController@dashboard')
+    ->name('dashboard');
+
+    Route::get('', "EloquentController@index" )
+    ->name('list');
+
+    Route::get('{gameId}', 'EloquentController@show')
+    ->name('show');
+});
 
 
 

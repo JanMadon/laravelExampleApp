@@ -52,52 +52,41 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
                                 Użytkownicy
                             </a>
+{{-- ------------------------------------------------------------------------------- --}}
 
-                            <div class="sb-sidenav-menu-heading">Gry</div>
-                            <a class="nav-link" href="{{route('get.dashboard')}}">
+                            <div class="sb-sidenav-menu-heading">Gry Builder</div>
+                            <a class="nav-link" href="{{route('games.b.dashboard')}}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-gauge"></i></div>
                                 dashboard
                             </a>
-                            <a class="nav-link" href="{{route('get.games')}}">
+                            <a class="nav-link" href="{{route('games.b.list')}}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-gamepad"></i></div>
+                                lista
+                            </a>
+{{-- ------------------------------------------------------------------------------- --}}
+
+                            <div class="sb-sidenav-menu-heading">Gry Eloquent</div>
+                            <a class="nav-link" href="{{route('games.e.dashboard')}}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-gauge"></i></div>
+                                dashboard
+                            </a>
+                            <a class="nav-link" href="{{route('games.e.list')}}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-gamepad"></i></div>
                                 lista
                             </a>
 
-                            <a class="nav-link" href="#">
-                                <div class="sb-nav-link-icon"><i class="fas fa-plus"></i></div>
-                                Dodaj
-                            </a>
-
                         </div>
-                    </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
                     </div>
                 </nav>
             </div>
             <div id="layoutSidenav_content">
-
                 <main>
                     @yield('contentMain')
                 </main>
-
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
             </div>
         </div>
 
-        <script src="js/scripts.js"></script>
+        <script src="/js/scripts.js"></script>
          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
