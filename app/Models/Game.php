@@ -49,9 +49,22 @@ class Game extends Model
         return $query->where('score', '>', 9);
     }
 
+
+
     public function scopeGenree(builder $query, int $genreId): Builder
     {
         return $query->where('genre_id', $genreId);
     }
+
+    public function scopePublisher(Builder $query, string $name1, string $name2, string $name3 ): Builder
+    {
+        return $query->where('publisher', $name1)
+                        ->orWhere('publisher', $name2)
+                        ->orWhere('publisher', $name3);;
+    }
+
+    protected $fillable = [
+        'title', 'dexcription', 'score', 'publisher', 'genre_id'
+    ];
 
 }
