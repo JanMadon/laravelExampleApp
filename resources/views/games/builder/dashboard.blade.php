@@ -48,7 +48,7 @@
                                 <th>Lp</th>
                                 <th>Tytuł</th>
                                 <th>Ocena</th>
-                                <th>Kategoria</th>
+                                <th>Gatunek</th>
                                 <th>Opcje</th>
                             </tr>
                         </thead>
@@ -57,7 +57,7 @@
                             <th>Lp</th>
                             <th>Tytuł</th>
                             <th>Ocena</th>
-                            <th>Kategoria</th>
+                            <th>Gatunek</th>
                             <th>Opcje</th>
                         </tr>
                         </tfoot>
@@ -93,7 +93,7 @@
                                 <th>Lp</th>
                                 <th>Tytuł</th>
                                 <th>Ocena</th>
-                                <th>Kategoria</th>
+                                <th>Gatunek</th>
                                 <th>Opcje</th>
                             </tr>
                         </thead>
@@ -102,7 +102,7 @@
                             <th>Lp</th>
                             <th>Tytuł</th>
                             <th>Ocena</th>
-                            <th>Kategoria</th>
+                            <th>Gatunek</th>
                             <th>Opcje</th>
                         </tr>
                         </tfoot>

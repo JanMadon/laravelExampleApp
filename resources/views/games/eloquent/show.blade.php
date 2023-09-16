@@ -17,7 +17,12 @@ cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
                 <li>Nazwa: {{ $game['title'] }}</li>
                 <li>Wydawca: {{ $game['publisher'] }}</li>
                 <li>Ocena: {{ $game['score'] }}</li>
-                <li>Kategoria: {{ $game['genre_id'] }}</li>
+                <li>Gatunek:
+                    <div>
+                        <span>Id: {{$game->genre->id}} </span>
+                        <span>name: {{ $game->genre->name }} </span>
+                    </div> </li>
+                <li>Opis: {{$game->dexcription}}</li>
             </ul>
 
             <a href="{{ route('games.e.list')}}"> Lista gier </a>

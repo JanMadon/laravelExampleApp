@@ -15,19 +15,22 @@ class EloquentController extends Controller
 
     public function index(): View
     {
-        $games = Game::orderBy('created_at')
+        $games = Game:: with('genre')  //Dodaje relacje, pozwala zoptimalizować ilość zapytań do bazy danych
+                    ->orderBy('created_at')
                     ->paginate(102);
+        // dd($games);
 
         return view('games.eloquent.list', ['games' => $games]);
     }
 
     public function dashboard(): View // zwraca listing gier
     {
-    $games = Game::all();
+    $games = Game::with('genre');
     $oldGames = DB::table('games')->get();
 
 
-     $bestGames = Game::where('score', '>', 5)->get(); // jeżeli uzyjemy np where dosatjemy obiekt buildera(podobny) stąd ->get()
+     $bestGames = Game::with('genre')
+                ->where('score', '>', 5)->get(); // jeżeli uzyjemy np where dosatjemy obiekt buildera(podobny) stąd ->get()
     //  $bestGames = DB::table('games')->where('score', '>', 5)->get();
     // dd($bestGames);
 
