@@ -17,6 +17,6 @@ class Game extends Model
 
     protected $attributes = [
         // domyśle waryości dla konkretnych kolumn np:
-        'score' => 5
+        // 'score' => 5
     ];
 }
