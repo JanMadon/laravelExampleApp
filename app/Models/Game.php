@@ -3,6 +3,8 @@
 // jeden model na jedną tabelę
 namespace App\Models;
 
+use App\Models\Scopes\LastWeekScope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,6 +24,9 @@ class Game extends Model
         // 'score' => 5
     ];
 
+
+
+    //relations
     public function genre(): BelongsTo
     {
 
@@ -29,6 +34,24 @@ class Game extends Model
         /*
         w przypadku belongsTo do klucza obcego bierze nazwę metody a nie klasy jak w hasMany
         */
+    }
+
+     //scopeGlobal - tworzymy instacjie klasy którą wczeńsniej stworzyliścmy
+     protected static function booted()
+     {
+         static::addGlobalScope(new LastWeekScope());
+     }
+
+
+    //scope local
+    public function scopeBest(Builder $query): Builder
+    {
+        return $query->where('score', '>', 9);
+    }
+
+    public function scopeGenree(builder $query, int $genreId): Builder
+    {
+        return $query->where('genre_id', $genreId);
     }
 
 }

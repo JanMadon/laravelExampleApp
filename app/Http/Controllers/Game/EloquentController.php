@@ -25,12 +25,13 @@ class EloquentController extends Controller
 
     public function dashboard(): View // zwraca listing gier
     {
-    $games = Game::with('genre');
+    $games = Game::with('genre')->get();
     $oldGames = DB::table('games')->get();
 
 
      $bestGames = Game::with('genre')
-                ->where('score', '>', 5)->get(); // jeżeli uzyjemy np where dosatjemy obiekt buildera(podobny) stąd ->get()
+                ->best()
+                ->get(); // jeżeli uzyjemy np where dosatjemy obiekt buildera(podobny) stąd ->get()
     //  $bestGames = DB::table('games')->where('score', '>', 5)->get();
     // dd($bestGames);
 
@@ -61,9 +62,9 @@ class EloquentController extends Controller
     {
         // $game = Game::find($gameId);
         //  $game = Game::findOrFail(555); // jeśli nie znajdzie to wywali 404
-
         //  $game = Game::where('id', 666)->first();
-         $game = Game::firstWhere('id', $gameId);
+         //$game = Game::firstWhere('id', $gameId);
+         $game = Game::genree($gameId)->first();
 
 
         return view('games.eloquent.show', ['game' => $game]);
