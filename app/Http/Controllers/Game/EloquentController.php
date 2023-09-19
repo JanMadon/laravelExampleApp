@@ -126,8 +126,10 @@ class EloquentController extends Controller
        ]);
     }
 
-    public function show(int $gameId):  View  //prezentowane sa dzczegoly kontretnej gry
+    public function show(int $gameId, Request $request): View  //prezentowane sa dzczegoly kontretnej gry
     {
+
+        // dd($request->ajax());
         // $game = Game::find($gameId);
         //  $game = Game::findOrFail(555); // jeśli nie znajdzie to wywali 404
         //  $game = Game::where('id', 666)->first();

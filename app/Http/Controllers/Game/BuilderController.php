@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\DB;
 class BuilderController extends Controller
 {
 
-    public function index(): View {
-
+    public function index(Request $request): View {
+        dump($request);
         $games = DB::table('games')
                 ->join('genres', 'games.genre_id', '=', 'genres.id')
                 ->select(['games.id','games.title', 'games.score', 'games.genre_id',

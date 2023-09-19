@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\LogTime;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,7 +58,8 @@ Route::group([
 Route::group([
                 'prefix' => 'e/games',
                 'namespace' => 'Game',
-                'as' => 'games.e.'
+                'as' => 'games.e.',
+                // 'middleware' => 'profiling'
             ], function() {
 
     Route::get('dashboard', 'EloquentController@dashboard')
@@ -67,8 +69,26 @@ Route::group([
     ->name('list');
 
     Route::get('{gameId}', 'EloquentController@show')
-    ->name('show');
+    ->name('show')
+    // ->middleware('profiling'); lub
+     ->middleware(LogTime::class);
+
+
 });
+
+// Route::middleware(LogTime::class)->group(
+//     function() {
+//         Route::get('dashboard', 'EloquentController@dashboard')
+//     ->name('dashboard');
+
+//     Route::get('', "EloquentController@index" )
+//     ->name('list');
+
+//     Route::get('{gameId}', 'EloquentController@show')
+//     ->name('show');
+//     });
+
+
 
 
 
@@ -147,7 +167,7 @@ Route::group([
 
     */
 
-/*
+ /*
     // lekcja 2 - Controller
 
     Route::get('users', 'UserController@list')
@@ -189,5 +209,4 @@ Route::group([
 
     Route::get('users/{userId}', 'UserController@show')
     ->name('get.user.show');
-
-*/
+ */
