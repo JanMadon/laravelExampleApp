@@ -37,11 +37,19 @@
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li><a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                          document.getElementById('logout-form').submit();">
+                             {{ __('Logout') }}
+                         </a>
+                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form></li>
                     </ul>
                 </li>
             </ul>
         </nav>
+        @auth
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
@@ -85,6 +93,14 @@
                 </main>
             </div>
         </div>
+        @else
+            <div id="content-logout">
+                <main>
+                    @yield('contentMain')
+                </main>
+            </div>
+        @endauth
+
 
         <script src="/js/scripts.js"></script>
          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

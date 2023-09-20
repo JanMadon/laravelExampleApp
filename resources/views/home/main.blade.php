@@ -7,6 +7,11 @@
             <li class="breadcrumb-item active">Dashboard</li>
         </ol>
     </div>
+    <div>
+        <p>witaj: {{$user->name}}</p>
+        <p> {{$user->email}}</p>
+        <p> {{$user->password}}</p>
+    </div>
 
 
     @if (session('message') === 1)

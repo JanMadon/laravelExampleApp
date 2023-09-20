@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\LogTime;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,192 +22,59 @@ use Illuminate\Support\Facades\Route;
     //Lekcja >>> kozystanie z template boodstrapa
 
 //homepage
-Route::get('/test', 'Test\TestController')
-    ->name('get.test');
 
-Route::get('/', function () {
-    return view('home.main');
-});
 
-Route::get('/main', 'HOME\MainPage');
+Route::group(['middleware'=> 'auth' ],function (){
+    Route::get('/', 'Home\MainPage');
 
-// USERS
-Route::get('/users', 'UserController@list')
-    ->name('get.users');
+    // USERS
+    Route::get('/users', 'UserController@list')
+        ->name('get.users');
 
-Route::get('/users/{userId}', 'UserController@show')
-    ->name('get.user.show');
+    Route::get('/users/{userId}', 'UserController@show')
+        ->name('get.user.show');
 
-// GAMES queryBilder
-Route::group([
-                'prefix' => 'b/games',
-                'namespace' => 'Game',
-                'as' => 'games.b.'
-            ], function() { // grupowanie i dodawanie prefiksu
+    // GAMES queryBilder
+    Route::group([
+                    'prefix' => 'b/games',
+                    'namespace' => 'Game',
+                    'as' => 'games.b.'
+                ], function() { // grupowanie i dodawanie prefiksu
 
-    Route::get('dashboard', 'BuilderController@dashboard')
+        Route::get('dashboard', 'BuilderController@dashboard')
+            ->name('dashboard');
+
+        Route::get('', "BuilderController@index" )
+            ->name('list');
+
+        Route::get('{gameId}', 'BuilderController@show')
+            ->name('show');
+    });
+
+    // GAMES eloguent
+    Route::group([
+                    'prefix' => 'e/games',
+                    'namespace' => 'Game',
+                    'as' => 'games.e.',
+                    // 'middleware' => 'profiling'
+                ], function() {
+
+        Route::get('dashboard', 'EloquentController@dashboard')
         ->name('dashboard');
 
-    Route::get('', "BuilderController@index" )
+        Route::get('', "EloquentController@index" )
         ->name('list');
 
-    Route::get('{gameId}', 'BuilderController@show')
+        Route::get('{gameId}', 'EloquentController@show')
         ->name('show');
+        // ->middleware('profiling'); lub
+        // ->middleware(LogTime::class)
+    });
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 
-// GAMES eloguent
-Route::group([
-                'prefix' => 'e/games',
-                'namespace' => 'Game',
-                'as' => 'games.e.',
-                // 'middleware' => 'profiling'
-            ], function() {
-
-    Route::get('dashboard', 'EloquentController@dashboard')
-    ->name('dashboard');
-
-    Route::get('', "EloquentController@index" )
-    ->name('list');
-
-    Route::get('{gameId}', 'EloquentController@show')
-    ->name('show')
-    // ->middleware('profiling'); lub
-     ->middleware(LogTime::class);
 
 
-});
+Auth::routes();
 
-// Route::middleware(LogTime::class)->group(
-//     function() {
-//         Route::get('dashboard', 'EloquentController@dashboard')
-//     ->name('dashboard');
-
-//     Route::get('', "EloquentController@index" )
-//     ->name('list');
-
-//     Route::get('{gameId}', 'EloquentController@show')
-//     ->name('show');
-//     });
-
-
-
-
-
-
-
-
-    // lekcja 1 - ROUTING:
- /*
-        Route::get('/', function () {
-            return view('welcome');
-        });
-
-        //Route::get('/hello', 'App\Http\Controllers\HelloController@hello');
-        Route::get('/hello/{name}', 'HelloController@hello');
-
-
-        Route::get('/goodbye/{name}', function ($name) {
-        return "goodbay: " . $name;
-        });
-
-        $uri = "/example";
-
-        Route::get($uri, fn() => 'jestem z GET' );
-        Route::post($uri, fn() => 'jestem z POST');
-        Route::put($uri, fn() => 'jestem z PUT');
-        Route::patch($uri, fn() => 'jestem z PUTCH');
-        Route::delete($uri, fn() => 'jestem z DELETE');
-        Route::options($uri, fn() => 'jestem z OPTION');
-
-        Route::match(['get', 'post'], '/match',  fn() => 'jestem getem i postem jednoczesnie');
-        Route::any('/any',  fn() => 'wszystkie metody :D');
-
-        Route::view('/view/route', 'route.view');// omija kontroler wyswietla poprostu widok
-        // oba dresy jeden widok z podstawionymi parametrami:
-        Route::view('//view/route/us1', 'route.viewParam', ['name' => 'zbyszek', 'adres' => 'warszawa']);
-        Route::view('//view/route/us2', 'route.viewParam', ['name' => 'janusz', 'adres' => 'kraków']);
-
-        Route::get('posts/{postID}', function (int $postID) {
-            var_dump($postID);
-            dd($postID);
-        } );
-
-        // Route::get('user/{nick?}', function (string $nick = null) {
-        //     dd($nick);
-        // });
-
-        Route::get('user/{nick}', function (string $nick) {
-            dd($nick);
-        }) -> where(['nick' => "[a-z]+"]); // wyrażenia regularne w parametrze
-
-        Route::get('item', function() {
-        return 'Items';
-        }) -> name('shop.items'); // nazwa dla route'y
-
-        Route::get('elements/{id}', function($id){
-            return 'Element:' . $id;
-        }) -> name('shop.items.single') ;
-
-        Route::get('example2', function() {
-            //$url = route('shop.items');                    // http://localhost:8000/item (znajdzie po nazwie)
-            $url = route('shop.items.single', ['id' => 33]); // w przypadku gdy jest jakiś paramter w url
-            dump($url);                 // przydaje się w widokach
-        });
-
-
-        // php artisan route:cache --keszuje routy co pozwala na ich szybsze wczytanie
-        // php artisan route:clear --czysci cache
-
-
-
-        // zadanie domowe (routing dla metod z uzyciem kontrolerów):
-        Route::get('/job', 'RoutingController@getMethod');
-        Route::post('/job', 'RoutingController@postMethod');
-        Route::put('/job', 'RoutingController@putMethod');
-        Route::delete('/job', 'RoutingController@deleteMethod');
-
-    */
-
- /*
-    // lekcja 2 - Controller
-
-    Route::get('users', 'UserController@list')
-        -> name('get.users');
-
-    //29 - single action controller.
-                    // to jest raczej niestandardowe podejscie do kontrollerów // np. podejscie CQRS (jedna akcja 1 plik)DOCZYTAJ
-    Route::get('user/{id}/address', 'User\ShowAddress') // pojedycza akcja więc nie podajemy nazwy akcji po @
-    ->where(['id' => '[0-9]+']) // reguła walidacji dla atrybutów
-    ->name('get.user.address');
-
-    Route::resource('games', 'GameController');
-   // Route::resource('games', 'GameController')
-    //->only(['index','show']); // tylko wyszczegulnione
-
-
-    // do lekicji z routingiem:
-
-    Route::get('/users/test/{id}', 'UserController@testShowRequest')
-    ->name('get.users.test');
-
-    Route::post('/users/test/{id}', 'UserController@testStore')
-    ->name('post.users.test');
-
-    Route::any('/move/{id}', 'Test\MoveController@list')
-    ->name('get.move');
-
-    Route::get('/users/test/{id}', 'UserController@testShowResponse')
-    ->name('get.users.test');
-
-    Route::get('test', 'TestController@test')
-    ->name('get.test');
-
-    Route::get('/users/test/{id}', 'UserController@testView')
-    ->name('get.users.test');
-
-    // Route::get('/users/{userId}', 'UserController@testBlade')
-    // ->name('get.users.test');
-
-    Route::get('users/{userId}', 'UserController@show')
-    ->name('get.user.show');
- */
