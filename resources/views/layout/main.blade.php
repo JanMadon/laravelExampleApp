@@ -62,6 +62,17 @@
                             </a>
 {{-- ------------------------------------------------------------------------------- --}}
 
+                            <div class="sb-sidenav-menu-heading">Gry</div>
+                            <a class="nav-link" href="{{route('games.dashboard')}}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-gauge"></i></div>
+                                dashboard
+                            </a>
+                            <a class="nav-link" href="{{route('games.list')}}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-gamepad"></i></div>
+                                lista
+                            </a>
+{{-- ------------------------------------------------------------------------------- --}}
+
                             <div class="sb-sidenav-menu-heading">Gry Builder</div>
                             <a class="nav-link" href="{{route('games.b.dashboard')}}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-gauge"></i></div>

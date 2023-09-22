@@ -19,12 +19,12 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-    //Lekcja >>> kozystanie z template boodstrapa
+//Lekcja >>> kozystanie z template boodstrapa
 
 //homepage
 
 
-Route::group(['middleware'=> 'auth' ],function (){
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'Home\MainPage');
 
     // USERS
@@ -36,15 +36,15 @@ Route::group(['middleware'=> 'auth' ],function (){
 
     // GAMES queryBilder
     Route::group([
-                    'prefix' => 'b/games',
-                    'namespace' => 'Game',
-                    'as' => 'games.b.'
-                ], function() { // grupowanie i dodawanie prefiksu
+        'prefix' => 'b/games',
+        'namespace' => 'Game',
+        'as' => 'games.b.'
+    ], function () { // grupowanie i dodawanie prefiksu
 
         Route::get('dashboard', 'BuilderController@dashboard')
             ->name('dashboard');
 
-        Route::get('', "BuilderController@index" )
+        Route::get('', "BuilderController@index")
             ->name('list');
 
         Route::get('{gameId}', 'BuilderController@show')
@@ -53,28 +53,44 @@ Route::group(['middleware'=> 'auth' ],function (){
 
     // GAMES eloguent
     Route::group([
-                    'prefix' => 'e/games',
-                    'namespace' => 'Game',
-                    'as' => 'games.e.',
-                    // 'middleware' => 'profiling'
-                ], function() {
+        'prefix' => 'e/games',
+        'namespace' => 'Game',
+        'as' => 'games.e.',
+        // 'middleware' => 'profiling'
+    ], function () {
 
         Route::get('dashboard', 'EloquentController@dashboard')
-        ->name('dashboard');
+            ->name('dashboard');
 
-        Route::get('', "EloquentController@index" )
-        ->name('list');
+        Route::get('', "EloquentController@index")
+            ->name('list');
 
         Route::get('{gameId}', 'EloquentController@show')
-        ->name('show');
+            ->name('show');
         // ->middleware('profiling'); lub
         // ->middleware(LogTime::class)
     });
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::group([
+        'prefix' => 'games',
+        'namespace' => 'Game',
+        'as' => 'games.',
+        // 'middleware' => 'profiling'
+    ], function () {
+
+        Route::get('', "GameController@index")
+            ->name('list');
+
+            Route::get('dashboard', 'GameController@dashboard')
+            ->name('dashboard');
+
+        Route::get('{gameId}', 'GameController@show')
+            ->name('show');
+    });
 });
 
 
 
 Auth::routes();
-
