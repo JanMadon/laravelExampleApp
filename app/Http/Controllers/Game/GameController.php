@@ -4,13 +4,9 @@
 namespace App\Http\Controllers\Game;
 
 use App\Http\Controllers\Controller;
-use App\Models\Game;
-use App\Repository\GameRepository;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
+//use App\Repository\Builder\GameRepository;
+use App\Repository\Eloquent\GameRepository;
 
 class GameController extends Controller
 {
@@ -23,7 +19,7 @@ class GameController extends Controller
 
     public function index(): View
     {
-        $games = $this->gameRepository->allPaginated(10);
+        $games = $this->gameRepository->all();
 
         return view('games.list', ['games' => $this->gameRepository->allPaginated(10)]);
     }

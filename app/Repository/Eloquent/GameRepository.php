@@ -1,10 +1,11 @@
 <?php
-
-namespace App\Repository;
+// declare(strict_types=1)1;
+namespace App\Repository\Eloquent;
 
 use App\Models\Game;
+use App\Repository\GameRepositotryInterfece as dupa;
 
-class GameRepository
+class GameRepository implements dupa
 {
     private Game $gameModel;
 
@@ -20,11 +21,13 @@ class GameRepository
 
     public function all()
     {
+       // dd($this->gameModel->with('genre')->get());
         return $this->gameModel->with('genre')->get();
     }
 
     public function allPaginated(int $limit)
     {
+
         return $this->gameModel->with('genre')->orderBy('created_at')->paginate($limit);
     }
 

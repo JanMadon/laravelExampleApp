@@ -31,6 +31,9 @@
                         <tbody>
                             @foreach ($games as $game)
                             <tr>
+                                {{-- @php
+                                    dd($game);
+                                @endphp --}}
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$game->id}}</td>
                                 <td>{{$game->title}}</td>
@@ -44,7 +47,7 @@
                         </tbody>
                     </table>
                 </div>
-                    {{$games->links('vendor.myPaginator.myPaginator')}}
+                    {{$games->links('vendor.pagination.bootstrap-5')}}
                     {{-- z wymuszeniem odpowiedniego szbllonu --}}
             </div>
         </div>

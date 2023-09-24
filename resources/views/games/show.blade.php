@@ -10,13 +10,13 @@ cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
     @endphp
 
     @if (!empty($game))
-        <h5 class="card-header">{{ $game['title']}}</h5>
+        <h5 class="card-header">{{ $game->title}}</h5>
         <div class="card-body">
             <ul>
-                <li>Id: {{ $game['id'] }}</li>
-                <li>Nazwa: {{ $game['title'] }}</li>
-                <li>Wydawca: {{ $game['publisher'] }}</li>
-                <li>Ocena: {{ $game['score'] }}</li>
+                <li>Id: {{ $game->id }}</li>
+                <li>Nazwa: {{ $game->title }}</li>
+                <li>Wydawca: {{ $game->publisher }}</li>
+                <li>Ocena: {{ $game->score }}</li>
                 <li>Gatunek:
                     <div>
                         <span>Id: {{$game->genre->id}} </span>

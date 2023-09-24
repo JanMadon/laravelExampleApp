@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 
 
@@ -15,7 +16,7 @@ class BuilderController extends Controller
 {
 
     public function index(Request $request): View {
-        dump($request);
+
         $games = DB::table('games')
                 ->join('genres', 'games.genre_id', '=', 'genres.id')
                 ->select(['games.id','games.title', 'games.score', 'games.genre_id',
@@ -24,7 +25,6 @@ class BuilderController extends Controller
                 // ->orderBy('games.score')
                 //->simplePaginate(10);// lub paginate() dzieli liste na strony w wydoku wyświetlamy za pomocą {{$games->links()}} i tyle
                 ->paginate(10);
-
                 // dd($games);
 
         return view('games.builder.list', ['games' => $games]);

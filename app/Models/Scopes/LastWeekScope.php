@@ -24,6 +24,6 @@ class LastWeekScope implements Scope
             // dd($pastDates);
 
 
-        $builder->where('created_at', '>', $pastDates);
+        // $builder->where('created_at', '>', $pastDates);
     }
 }
