@@ -16,6 +16,10 @@ class GameController extends Controller
     public function __construct(GameRepository $repository)
     {
         $this->gameRepository=$repository;
+        app()->make(GameRepository::class);
+        app()->make(GameRepository::class);
+        app()->make(GameRepository::class);
+        app()->make(GameRepository::class);
     }
 
     public function index(): View

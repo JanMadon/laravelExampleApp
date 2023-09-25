@@ -11,9 +11,10 @@ class GameRepository implements EloquentGameRepository
 {
     private Game $gameModel;
 
-    public function __construct(Game $gameModel, FakeService $config)
+    public function __construct(Game $gameModel)
     {
         $this->gameModel = $gameModel;
+    
     }
 
     public function get(int $id)

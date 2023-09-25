@@ -2,7 +2,9 @@
 // php artisan make:provider GameSreviceProvider
 namespace App\Providers;
 
+use App\Http\Controllers\Game\BuilderController;
 use App\Models\Game;
+use App\Repository\Builder\GameRepository as BuilderGameRepository;
 use App\Repository\Eloquent\GameRepository as EloquentGameRepostory;
 use App\Repository\GameRepository;
 use App\Service\FakeService;
@@ -38,18 +40,25 @@ class GameServiceProvider extends ServiceProvider
 
         //test:
 
-        $this->app->bind(
+        // $this->app->bind(
+        $this->app->singleton(   // wywoła się tylko raz // w przypadku bind przy kazdym wywołaniu obiektu sprawdz GameController.php/ __constructor
             GameRepository::class,
             function ($app) {
-                $config = 'test';
+
+                // dump('test');
                 $fakeService = $this->app->make(FakeService::class);
                 $gameModel = $app->make(Game::class);
 
                 //$fakeService = new FakeService('ddd');
 
-                return new EloquentGameRepostory($gameModel, $fakeService);
+                return new EloquentGameRepostory($gameModel);
             }
         );
+
+        // bindowanie kontekstowe (zalerzy z jakieko kontrollera pochodzi ządanie?):
+        $this->app->when(BuilderController::class)
+            ->needs(GameRepository::class)
+            ->give(BuilderGameRepository::class);
     }
 
     /**
@@ -60,7 +69,7 @@ class GameServiceProvider extends ServiceProvider
 
         // jeśli wyciągamy coś poza callback, (coś co ma być wykonane tylko 1 raz) 
         //uzywamy boot a nie register:
-        $fakeService = $this->app->make(FakeService::class); // pzekazujemy przez USE do callbacka
+        /* $fakeService = $this->app->make(FakeService::class); // pzekazujemy przez USE do callbacka
 
         $this->app->bind(
             GameRepository::class,
@@ -74,5 +83,6 @@ class GameServiceProvider extends ServiceProvider
                 return new EloquentGameRepostory($gameModel, $fakeService);
             }
         );
+        */
     }
 }
