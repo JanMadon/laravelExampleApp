@@ -6,7 +6,8 @@ namespace App\Http\Controllers\Game;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 //use App\Repository\Builder\GameRepository;
-use App\Repository\Eloquent\GameRepository;
+//use App\Repository\Eloquent\GameRepository;
+use App\Repository\GameRepository;
 
 class GameController extends Controller
 {

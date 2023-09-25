@@ -3,9 +3,9 @@
 namespace App\Repository\Eloquent;
 
 use App\Models\Game;
-use App\Repository\GameRepositotryInterfece as dupa;
+use App\Repository\GameRepository as EloquentGameRepository;
 
-class GameRepository implements dupa
+class GameRepository implements EloquentGameRepository
 {
     private Game $gameModel;
 

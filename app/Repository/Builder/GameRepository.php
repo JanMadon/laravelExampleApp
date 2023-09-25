@@ -4,12 +4,12 @@ namespace App\Repository\Builder;
 
 use App\Models\Game;
 use Illuminate\Support\Facades\DB;
-use App\Repository\GameRepositotryInterfece;
+use App\Repository\GameRepository as BuilderGameRepository;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use stdClass;
 
-class GameRepository implements GameRepositotryInterfece
+class GameRepository implements BuilderGameRepository
 {
     private DB $gameTabele;
 
