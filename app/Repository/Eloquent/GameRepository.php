@@ -4,12 +4,14 @@ namespace App\Repository\Eloquent;
 
 use App\Models\Game;
 use App\Repository\GameRepository as EloquentGameRepository;
+use App\Service\FakeService;
+use stdClass;
 
 class GameRepository implements EloquentGameRepository
 {
     private Game $gameModel;
 
-    public function __construct(Game $gameModel)
+    public function __construct(Game $gameModel, FakeService $config)
     {
         $this->gameModel = $gameModel;
     }
