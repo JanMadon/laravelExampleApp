@@ -3,11 +3,13 @@
 
 namespace App\Http\Controllers\Game;
 
+use App\Facades\Game;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 //use App\Repository\Builder\GameRepository;
 //use App\Repository\Eloquent\GameRepository;
 use App\Repository\GameRepository;
+use Illuminate\Support\Facades\Log;
 
 class GameController extends Controller
 {
@@ -20,13 +22,16 @@ class GameController extends Controller
         app()->make(GameRepository::class);
         app()->make(GameRepository::class);
         app()->make(GameRepository::class);
+        Log::alert('to jest fasada'); // w storage/logs/laravel/log zapiszę to info
     }
 
     public function index(): View
     {
         $games = $this->gameRepository->all();
-
-        return view('games.list', ['games' => $this->gameRepository->allPaginated(10)]);
+        return view('games.list', [
+                    //'games' => $this->gameRepository->allPaginated(10),
+                    'games' => Game::allPaginated(10) // fasada zamiast wstrzykiwania 
+                    ]);
     }
 
     public function dashboard(): View // zwraca listing gier
