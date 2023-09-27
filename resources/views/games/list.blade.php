@@ -17,11 +17,11 @@
                                 <th>Gatunek</th>
                                 <th>Opcje</th>
                             </tr>
-                        </thead>
-                        <tfoot>
+                            </thead>
+                            <tfoot>
                             <tr>
-                                <th>Id</th>
                                 <th>Lp</th>
+                                <th>Id</th>
                                 <th>Tytuł</th>
                                 <th>Ocena</th>
                                 <th>Gatunek</th>
@@ -29,21 +29,18 @@
                             </tr>
                         </tfoot>
                         <tbody>
-                            @foreach ($games as $game)
+                            @foreach($games ?? [] as $game)
                             <tr>
-                                {{-- @php
-                                    dd($game);
-                                @endphp --}}
-                                <td>{{$loop->iteration}}</td>
-                                <td>{{$game->id}}</td>
-                                <td>{{$game->title}}</td>
-                                <td>{{$game->score}}</td>
-                                <td>{{$game->genre->name}}</td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $game->id }}</td>
+                                <td>{{ $game->name }}</td>
+                                <td>{{ $game->score ?? 'brak' }}</td>
+                                <td>{{ $game->genres->implode('name', ', ') }}</td>
                                 <td>
-                                    <a href="{{ route('games.show', ['gameId' => $game->id])}}">Szczeguły</a>
+                                    <a href="{{ route('games.show', ['gameId' => $game->id]) }}">Szczegóły</a>
                                 </td>
                             </tr>
-                            @endforeach
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

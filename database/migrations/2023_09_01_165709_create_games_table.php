@@ -18,6 +18,8 @@ return new class extends Migration
      */
     public function up(): void
     { // twzorzy tabele
+        Schema::dropIfExists('games');
+
         Schema::create('games', function (Blueprint $table) { // kozysta z polaczenia domyslnego
     // Schema::connection('mysql')->create('users', function ($table) {}); // tutaj jawnie okreslamy z ktorego ma skorzytać.
             $table->id();

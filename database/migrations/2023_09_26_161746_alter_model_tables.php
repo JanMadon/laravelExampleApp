@@ -38,6 +38,8 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::dropIfExists('gameGenres');
+
         Schema::create('gameGenres', function (Blueprint $table) {
             $table->integer('game_id')->index();
             $table->integer('genre_id')->index();
@@ -46,12 +48,15 @@ return new class extends Migration
         });
 
         // tabela publisher + łącząca
+        Schema::dropIfExists('publishers');
+
         Schema::create('publishers', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100)->index();
             $table->timestamps();
         });
 
+        Schema::dropIfExists('gamePublishers');
         Schema::create('gamePublishers', function (Blueprint $table) {
             $table->integer('game_id')->index();
             $table->integer('publisher_id')->index();
@@ -60,12 +65,14 @@ return new class extends Migration
         });
 
         // tabela developers + łącząca
+        Schema::dropIfExists('developers');
         Schema::create('developers', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100)->index();
             $table->timestamps();
         });
 
+        Schema::dropIfExists('gameDevelopers');
         Schema::create('gameDevelopers', function (Blueprint $table) {
             $table->integer('game_id')->index();
             $table->integer('developer_id')->index();
@@ -73,6 +80,7 @@ return new class extends Migration
             $table->index(['game_id', 'developer_id']);
         });
 
+        Schema::dropIfExists('screenshots');
         Schema::create('screenshots', function (Blueprint $table) {
             $table->id();
             $table->integer('game_id')->index();
@@ -81,6 +89,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::dropIfExists('movies');
         Schema::create('movies', function (Blueprint $table) {
             $table->id();
             $table->integer('game_id')->index();

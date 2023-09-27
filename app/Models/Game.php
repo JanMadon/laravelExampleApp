@@ -1,70 +1,70 @@
 <?php
-// php artisan make:model Game
-// jeden model na jedną tabelę
+
 namespace App\Models;
 
-use App\Models\Scopes\LastWeekScope;
+use App\Model\Scope\LastWeekScope;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Game extends Model
 {
-    use HasFactory; // <- tego w starszej wersji nie było sprawdz po co to jest
-
-    // protected $table = 'application_games';
-    // protected $table = 'games'; // defoult
-    // protected $primaryKey = 'email';
-    // protected $primaryKey = 'id'; // defoult
-    // protected $timestamps = false; // gdy niema kolumny created_at i updated_at
-
     protected $attributes = [
-        // domyśle waryości dla konkretnych kolumn np:
-        // 'score' => 5
+        'metacritic_score' => null
     ];
 
+    protected $casts = [
+        'metacritic_score' => 'integer',
+        'steam_appid' => 'integer',
+    ];
 
+    // tablica z atrybutami które możemy uzupełniać przez create lub konstruktor
+    //protected $fillable = ['name', 'description', 'metacritic_score', 'publisher', 'genre_id'];
 
-    //relations
-    public function genre(): BelongsTo
+    // ====> ATTRIBUTES <====
+
+    public function getScoreAttribute(): ?int
     {
-
-        return $this->belongsTo(Genre::class);
-        /*
-        w przypadku belongsTo do klucza obcego bierze nazwę metody a nie klasy jak w hasMany
-        */
+        return $this->metacritic_score;
     }
 
-     //scopeGlobal - tworzymy instacjie klasy którą wczeńsniej stworzyliścmy
-     protected static function booted()
-     {
-         static::addGlobalScope(new LastWeekScope());
-     }
+    public function getSteamIdAttribute(): int
+    {
+        return $this->steam_appid;
+    }
 
+    public function getShortDescriptionAttribute()
+    {
+        return $this->attributes['short_description'];
+    }
 
-    //scope local
+    // ====> RELATIONS <====
+
+    public function genres()
+    {
+        return $this->belongsToMany('App\Models\Genre', 'gameGenres');
+    }
+
+    public function publishers()
+    {
+        return $this->belongsToMany('App\Models\Publisher', 'gamePublishers');
+    }
+
+    // ====> SCOPE <====
+
+    // using global scope
+    //protected static function booted()
+    //{
+    //    static::addGlobalScope(new LastWeekScope());
+    //}
+
     public function scopeBest(Builder $query): Builder
     {
-        return $query->where('score', '>', 9);
+        return $query->where('metacritic_score', '>' , 90)
+            ->orderBy('metacritic_score', 'desc');
     }
 
-
-
-    public function scopeGenree(builder $query, int $genreId): Builder
+    public function scopePublisher(Builder $query, string $publisher): Builder
     {
-        return $query->where('genre_id', $genreId);
+        return $query->where('publisher', $publisher);
     }
-
-    public function scopePublisher(Builder $query, string $name1, string $name2, string $name3 ): Builder
-    {
-        return $query->where('publisher', $name1)
-                        ->orWhere('publisher', $name2)
-                        ->orWhere('publisher', $name3);;
-    }
-
-    protected $fillable = [
-        'title', 'dexcription', 'score', 'publisher', 'genre_id'
-    ];
-
 }

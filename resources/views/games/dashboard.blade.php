@@ -4,7 +4,7 @@
 
     <div>
         <p>liczba gier: </p> <p style="color: blue">{{$stats['count']}} </p>
-        <p>liczba gier: 5+:</p> <p style="color: blue">{{$stats['countScoreGTFive']}} </p>
+        <p>liczba gier: 70+:</p> <p style="color: blue">{{$stats['countScoreGTFive']}} </p>
         <p>Srednia ocena: </p> <p style="color: blue">{{$stats['avg']}} </p>
         <p>max ocena:</p> <p style="color: blue">{{$stats['max']}} </p>
         <p>min ocena:</p> <p style="color: blue">{{$stats['min']}} </p>
@@ -22,7 +22,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($scoreStats as $scoreStat)
+                        @foreach ($scoreStats ?? []  as $scoreStat)
                         <tr>
                             <td>{{$scoreStat->score}}</td>
                             <td>{{$scoreStat->count}}</td>
@@ -48,31 +48,34 @@
                                 <th>Lp</th>
                                 <th>Tytuł</th>
                                 <th>Ocena</th>
-                                <th>Gatunek</th>
+                                <th>Steam Id</th>
+                                <th>Kategoria</th>
                                 <th>Opcje</th>
                             </tr>
                         </thead>
                         <tfoot>
-                        <tr>
-                            <th>Lp</th>
-                            <th>Tytuł</th>
-                            <th>Ocena</th>
-                            <th>Gatunek</th>
-                            <th>Opcje</th>
-                        </tr>
+                            <tr>
+                                <th>Lp</th>
+                                <th>Tytuł</th>
+                                <th>Ocena</th>
+                                <th>Steam Id</th>
+                                <th>Kategoria</th>
+                                <th>Opcje</th>
+                            </tr>
                         </tfoot>
                         <tbody>
-                            @foreach ($bestGames as $bestgame)
-                            <tr>
-                                <td>{{$loop->iteration}}</td>
-                                <td>{{$bestgame->title}}</td>
-                                <td>{{$bestgame->score}}</td>
-                                <td>{{$bestgame->genre->name}}</td>
-                                <td>
-                                    <a href="{{ route('games.show', ['gameId' => $bestgame->id])}}">Szczeguły</a>
-                                </td>
-                            </tr>
-                            @endforeach
+                            @foreach($bestGames ?? [] as $game)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $game->name }}</td>
+                            <td>{{ $game->score }}</td>
+                            <td>{{ $game->steamId }}</td>
+                            <td>{{ $game->genres->implode('name', ', ') }}</td>
+                            <td>
+                                <a href="{{ route('games.show', ['gameId' => $game->id]) }}">Szczegóły</a>
+                            </td>
+                        </tr>
+                    @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -87,7 +90,7 @@
             <div class="card-header"><i class="fas fa-table mr-1"></i></div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    {{-- <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>Lp</th>
@@ -119,7 +122,7 @@
                             </tr>
                             @endforeach
                         </tbody>
-                    </table>
+                    </table> --}}
                 </div>
             </div>
         </div>

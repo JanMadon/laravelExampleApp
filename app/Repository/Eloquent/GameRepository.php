@@ -25,36 +25,36 @@ class GameRepository implements EloquentGameRepository
     public function all()
     {
        // dd($this->gameModel->with('genre')->get());
-        return $this->gameModel->with('genre')->get();
+        return $this->gameModel->with('genres')->orderBy('created_at')->get();
     }
 
     public function allPaginated(int $limit)
     {
 
-        return $this->gameModel->with('genre')->orderBy('created_at')->paginate($limit);
+        return $this->gameModel->with('genres')->orderBy('created_at')->paginate($limit);
     }
 
     public function best()
     {
-        return $this->gameModel->with('genre')->best()->get();
+        return $this->gameModel->with('genres')->best()->get();
     }
 
     public function stats()
     {
         return [
             'count' =>  $this->gameModel->count(),
-            'countScoreGTFive' => $this->gameModel->where('score', '>=', 5)->count(),
-            'max' => $this->gameModel->max('score'),
-            'min' => $this->gameModel->min('score'),
-            'avg' => $this->gameModel->avg('score')
+            'countScoreGTFive' => $this->gameModel->where('metacritic_score', '>=', 70)->count(),
+            'max' => $this->gameModel->max('metacritic_score'),
+            'min' => $this->gameModel->min('metacritic_score'),
+            'avg' => round($this->gameModel->avg('metacritic_score'), 2),
         ];
     }
     public function scoreStats()
     {
-        return $this->gameModel->select($this->gameModel->raw('count(*) as count'), 'score')
-        ->having('count', '>', 10)
-        ->groupBy('score')
-        ->orderBy('score', 'desc')
+        return $this->gameModel->select($this->gameModel->raw('count(*) as count'), 'metacritic_score')
+        ->having('metacritic_score', '>', 10)
+        ->groupBy('metacritic_score')
+        ->orderBy('metacritic_score', 'desc')
         ->get();
     }
 }
