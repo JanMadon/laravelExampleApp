@@ -14,7 +14,6 @@ class GameRepository implements EloquentGameRepository
     public function __construct(Game $gameModel)
     {
         $this->gameModel = $gameModel;
-    
     }
 
     public function get(int $id)
@@ -24,7 +23,7 @@ class GameRepository implements EloquentGameRepository
 
     public function all()
     {
-       // dd($this->gameModel->with('genre')->get());
+        // dd($this->gameModel->with('genre')->get());
         return $this->gameModel->with('genres')->orderBy('created_at')->get();
     }
 
@@ -33,6 +32,27 @@ class GameRepository implements EloquentGameRepository
 
         return $this->gameModel->with('genres')->orderBy('created_at')->paginate($limit);
     }
+
+    public function filderBy (?string $phrase, ?string $type = 'all', int $limit)
+    {
+        $query = $this->gameModel
+            ->with('genres')
+            ->orderBy('created_at');
+
+            $type = null ?? 'all';
+
+            if($type!='all') {
+                $query->where('type', $type);
+            }
+
+            if ($phrase) {
+                $query->whereRaw('description like ?', ["%$phrase%"]);
+            }
+
+            return $query->paginate($limit);
+    }
+
+
 
     public function best()
     {
@@ -52,9 +72,9 @@ class GameRepository implements EloquentGameRepository
     public function scoreStats()
     {
         return $this->gameModel->select($this->gameModel->raw('count(*) as count'), 'metacritic_score')
-        ->having('metacritic_score', '>', 10)
-        ->groupBy('metacritic_score')
-        ->orderBy('metacritic_score', 'desc')
-        ->get();
+            ->having('metacritic_score', '>', 10)
+            ->groupBy('metacritic_score')
+            ->orderBy('metacritic_score', 'desc')
+            ->get();
     }
 }

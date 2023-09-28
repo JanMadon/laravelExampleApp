@@ -10,4 +10,6 @@ interface GameRepository
     public function best();
     public function stats();
     public function scoreStats();
+
+    public function filderBy(?string $phrase, string $type, int $limit);
 }

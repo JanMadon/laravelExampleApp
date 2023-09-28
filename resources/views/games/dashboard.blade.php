@@ -68,7 +68,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $game->name }}</td>
-                            <td>{{ $game->score }}</td>
+                            <td>{{ $game->metacritic_score }}</td>
                             <td>{{ $game->steamId }}</td>
                             <td>{{ $game->genres->implode('name', ', ') }}</td>
                             <td>

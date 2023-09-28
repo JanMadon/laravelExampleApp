@@ -18,10 +18,26 @@ class GameController extends Controller
         $this->gameRepository = $repository;
     }
 
-    public function index(): View
+    public function index(Request $request): View
     {
+
+        $phrase = $request->get('phrase');
+        $type = $request->get('type');
+        //dump($phrase ,$type);
+
+        $filterBy = $this->gameRepository->filderBy($phrase, $type, 15);
+        // $filterBy->appends( [ //to jest po to aby nie gubił query paramiters podczas zmiany strony
+        //     'phrase' => $phrase,
+        //     'type' =>$type
+        // ]);
+        //dump($filterBy);
+
+        //dd($this->gameRepository->allPaginated(10));
         return view('games.list', [
-            'games' => $this->gameRepository->allPaginated(10)
+            //'games' => $this->gameRepository->allPaginated(50)
+            'games' => $filterBy,
+            'phrase' => $phrase,
+            'type' =>$type
         ]);
     }
 
@@ -40,4 +56,8 @@ class GameController extends Controller
             'game' => $this->gameRepository->get($gameId)
         ]);
     }
-}
+
+    public function search() {
+
+    }
+ }
