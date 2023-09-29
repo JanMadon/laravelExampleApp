@@ -4,6 +4,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\AlphaSpaces;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -34,7 +35,10 @@ class UpdateUserProfile extends FormRequest
                 // 'unique:users',
                 Rule::unique('users')->ignore($userId), // ignorowanie emial zalogowanego uzytkownika
                 'email'],
-            'name' => ['required', 'max:50']
+            'name' => ['required',
+                        'max:50',
+                        new AlphaSpaces(),
+                        ]
         ];
     }
 

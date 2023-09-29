@@ -31,7 +31,7 @@ class UserController extends Controller
     {    
         // pobranie zwalidowanych danych:
         $data = $request->validated(); // w tablicy znajdą sie tylkoo dane validated
-        dd($data);
+       // dd($data);
 
 
         return redirect() // przekierowanie na strone
