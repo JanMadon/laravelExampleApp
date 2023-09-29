@@ -36,7 +36,8 @@
                     class="form-control @error('name') is-invalid @enderror"
                     id="name"
                     name="name"
-                    value="{{ old('name', $user->name) }}"
+                    {{-- pobieranie starej wartości pola name // do jest aby tracić wisanych danych --}}
+                    value="{{ old('name', $user->name) }}" 
                 />
                 @error('name')
                     <div class="invalid-feedback d-block">{{ $message }}</div>

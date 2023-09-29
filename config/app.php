@@ -171,7 +171,8 @@ return [
 
         // mój:
         App\Providers\GameServiceProvider::class,
-         App\Providers\FakeServiceProvider::class,
+        App\Providers\FakeServiceProvider::class,
+        App\Providers\UserServiceProvider::class,
     ])->toArray(),
 
     /*

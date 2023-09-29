@@ -1,16 +1,24 @@
 <?php
 
-declare(strict_types=1);
+//declare(strict_types=1);
 
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserProfile;
+use App\Repository\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    private UserRepository $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        //dd($userRepository);
+        $this->userRepository = $userRepository;
+    }
 
     public function show()
     {
@@ -32,6 +40,8 @@ class UserController extends Controller
         // pobranie zwalidowanych danych:
         $data = $request->validated(); // w tablicy znajdą sie tylkoo dane validated
        // dd($data);
+       // Wpraowadzienie nowych danych:
+       $this->userRepository->updateModel(Auth::user(), $data);
 
 
         return redirect() // przekierowanie na strone

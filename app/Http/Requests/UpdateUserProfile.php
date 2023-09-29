@@ -34,19 +34,24 @@ class UpdateUserProfile extends FormRequest
                 'required',
                 // 'unique:users',
                 Rule::unique('users')->ignore($userId), // ignorowanie emial zalogowanego uzytkownika
-                'email'],
-            'name' => ['required',
-                        'max:50',
-                        new AlphaSpaces(),
-                        ]
+                'email'
+            ],
+            'name' => [
+                'required',
+                'max:50',
+                new AlphaSpaces(),
+            ],
+            'phone' => [
+                'min:6'
+            ]
         ];
     }
 
     public function messages()
     {
-      return [
-        'email.unique' => ' Podany aders jest już zajęty!',
-        'name.max' => ' Maxymalna ilość znaków to: :max' // :max jest tak jakby zmienną 
-      ] ; 
+        return [
+            'email.unique' => ' Podany aders jest już zajęty!',
+            'name.max' => ' Maxymalna ilość znaków to: :max' // :max jest tak jakby zmienną 
+        ];
     }
 }
