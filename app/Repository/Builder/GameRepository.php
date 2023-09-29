@@ -123,4 +123,8 @@ class GameRepository implements BuilderGameRepository
         unset($game->genres_name);
     return $game;
     }
+    public function filderBy(?string $phrase, string $type, int $limit) {
+        
+    }
+
 }

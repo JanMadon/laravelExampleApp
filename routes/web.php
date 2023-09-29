@@ -27,6 +27,9 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'Home\MainPage');
 
+    
+
+
     // USERS
     Route::get('/users', 'UserController@list')
         ->name('get.users');
@@ -83,11 +86,25 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('', "GameController@index")
             ->name('list');
 
-            Route::get('dashboard', 'GameController@dashboard')
+        Route::get('dashboard', 'GameController@dashboard')
             ->name('dashboard');
 
         Route::get('{gameId}', 'GameController@show')
             ->name('show');
+    });
+
+    // USER - ME
+
+    Route::group(['prefix' => 'me', 'as' => 'me.'], function () {
+
+        Route::get('profile', 'User\UserController@show')
+            ->name('profile');
+
+        Route::get('edit', 'User\UserController@edit')
+            ->name('edit');
+
+        Route::post('update', 'User\UserController@update')
+            ->name('update');
     });
 });
 
