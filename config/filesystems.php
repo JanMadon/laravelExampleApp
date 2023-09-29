@@ -28,21 +28,25 @@ return [
     |
     */
 
+    // DEFINIOWANIE DYSKÓW:
+
     'disks' => [
 
-        'local' => [
+        'local' => [ // to bedzie ukryte
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root' => storage_path('app'), // scieszka do forderu który bedzie rootem/od tego momętu larawel konstruje scieszki do pliku
+            //path/to/storage/app
             'throw' => false,
         ],
 
-        'public' => [
+        'public' => [ // to jest wystwione na swiat
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
+        //php artisan storage:link // komęda do upublicznienia storage (tworzy skrut w pablic)
 
         's3' => [
             'driver' => 's3',
