@@ -11245,3 +11245,7 @@ body {
 #content-logout {
     margin-top: 200px;
 }
+
+.user-avatar {
+  max-width: 250px;
+}
