@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'Home\MainPage');
 
-    
+
 
 
     // USERS
@@ -94,17 +94,34 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     // USER - ME
+    Route::group([
+        'prefix' => 'me',
+        'namespace' => 'User',
+        'as' => 'me.'
+    ], function () {
 
-    Route::group(['prefix' => 'me', 'as' => 'me.'], function () {
-
-        Route::get('profile', 'User\UserController@show')
+        Route::get('profile', 'UserController@show')
             ->name('profile');
 
-        Route::get('edit', 'User\UserController@edit')
+        Route::get('edit', 'UserController@edit')
             ->name('edit');
 
-        Route::post('update', 'User\UserController@update')
+        Route::post('update', 'UserController@update')
             ->name('update');
+
+
+        //listing/ dodanie gry/ usuniedie gry/ ocena
+        Route::get('games', 'GameController@list')
+            ->name('games.list');
+
+        Route::post('games', 'GameController@add')
+            ->name('games.add');
+
+        Route::delete('games', 'GameController@remove')
+            ->name('games.remove');
+
+        Route::post('games/rate', 'GameController@rate')
+            ->name('games.rate');
     });
 });
 

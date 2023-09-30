@@ -44,4 +44,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function games()
+    {
+        return $this->belongsToMany(Game::class, 'userGames');
+    }
+
+    public function addGame(Game $game): void
+    {
+        $this->games()->save($game);
+    }
 }

@@ -1,17 +1,36 @@
 @extends('layout.main')
 <link href="css/styles.css" rel="stylesheet" />
 @section('contentMain')
-cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
-
 <div class="card">
-    @php
-        // dd($game)
-
-    @endphp
+    @if (session('status'))
+    {{session('status')}}    
+    @endif
 
     @if (!empty($game))
-    <h5 class="card-header">{{ $game->title }}</h5>
+    <h5 class="card-header">
+        {{ $game->name }}
+        <form class="float-right m-0" method="POST" action="{{route('me.games.add')}}">
+           @csrf
+            <div class="from-row">
+                <input type="hidden" name="gameId" value="{{$game->id}}">
+                <button type="submit" class="btn btn-primary mb-2">Dodaj do mojej listy</button>
+            </div>
+        </form>
+    </h5>
+   
     <div class="card-body">
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                    @endforeach
+                </ul>
+            </div>
+            
+        @endif
+
         <ul>
             <li>Id: {{ $game->id }}</li>
             <li>Nazwa: {{ $game->name }}</li>
