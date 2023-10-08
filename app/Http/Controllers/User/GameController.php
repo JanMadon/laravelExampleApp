@@ -4,6 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddGameToUserList;
+use App\Http\Requests\RateGame;
+use App\Http\Requests\RemoveGametoUserList;
 use App\Repository\GameRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +23,11 @@ class GameController extends Controller
 
     public function list()
     {
+        $user = Auth::user();
+
+        return view('me.game.list', [
+            'games' => $user->games()->paginate(10),
+        ]);
     }
 
     public function add(AddGameToUserList $request)
@@ -38,11 +45,38 @@ class GameController extends Controller
             ->with('status', 'Gra została dodana');
     }
 
-    public function remove()
+    public function remove(RemoveGametoUserList $request)
     {
+        $data = $request->validated();
+        $gameId = $data['gameId'];
+
+        $game = $this->gameRepository->get($gameId);
+
+        $user = Auth::user();
+        $user->removeGame($game);
+
+        return redirect()->route('games.show', ['gameId' => $gameId]);
+
     }
 
-    public function rate()
+    public function rate(RateGame $request)
     {
+        $data = $request->validated();
+        
+        $gameId = (int) $data['gameId'];
+        $rate = $data['rate'] ? (int) $data['rate'] : null;
+        
+        $game = $this->gameRepository->get($gameId);
+
+
+
+        $user = Auth::user();
+        $user->rateGame($game, $rate);
+
+
+        return redirect()->route('me.games.list')->with('status', 'Ocena została zapisana');
+
+
+
     }
 }

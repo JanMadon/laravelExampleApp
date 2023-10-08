@@ -47,11 +47,32 @@ class User extends Authenticatable
 
     public function games()
     {
-        return $this->belongsToMany(Game::class, 'userGames');
+        return $this->belongsToMany(Game::class, 'userGames')
+                ->withPivot('rate') // bez tego wyciąga tylko dane z modelu game
+                ->with('genres');
     }
 
     public function addGame(Game $game): void
     {
         $this->games()->save($game);
+    }
+
+    public function hasGame(int $gameId): bool
+    {
+        //dd( $this->games());
+        $game = $this->games()->where('userGames.game_id', $gameId)->first();
+        return (bool) $game;
+    }
+
+    public function removeGame(Game $game): void
+    {
+        $aaa = $this->games()->detach($game->id);
+        // dd($aaa);
+    }
+
+
+    public function rateGame(Game $game, int $rate)
+    {
+        $this->games()->updateExistingPivot($game, ['rate' => $rate]);
     }
 }

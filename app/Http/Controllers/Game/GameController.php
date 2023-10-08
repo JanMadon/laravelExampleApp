@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Repository\GameRepository;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class GameController extends Controller
 {
@@ -52,12 +53,16 @@ class GameController extends Controller
 
     public function show(int $gameId, Request $request): View
     {
+
+        $user = Auth::user();
+        $userHasGame = $user->hasGame($gameId);
+        //dd($userHasGame);
+
+
         return view('games.show', [
-            'game' => $this->gameRepository->get($gameId)
+            'game' => $this->gameRepository->get($gameId),
+            'userHasGame' => $userHasGame
         ]);
     }
 
-    public function search() {
-
-    }
  }

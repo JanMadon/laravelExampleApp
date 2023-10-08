@@ -64,7 +64,7 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
                                 Mój profil
                             </a>
-                            <a class="nav-link" href="{{route('me.profile')}}">
+                            <a class="nav-link" href="{{route('me.games.list')}}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-gamepad"></i></div>
                                 Moje Gry
                             </a>

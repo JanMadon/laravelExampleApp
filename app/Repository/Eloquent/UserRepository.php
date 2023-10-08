@@ -5,6 +5,8 @@ namespace App\Repository\Eloquent;
 
 use App\Models\User;
 use App\Repository\UserRepository as RepositoryUserRepository;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class UserRepository implements RepositoryUserRepository
 {
@@ -23,5 +25,16 @@ class UserRepository implements RepositoryUserRepository
         $user->avatar = $data['avatar'] ?? null;
     
         $user->save();
+    }
+
+    public function all(): Collection
+    {
+        
+        return $this->userModel->get();
+    }
+
+    public function get($id): User
+    {
+        return $this->userModel->find($id);
     }
 }

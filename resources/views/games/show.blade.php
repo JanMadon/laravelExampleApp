@@ -9,13 +9,25 @@
     @if (!empty($game))
     <h5 class="card-header">
         {{ $game->name }}
+        @if (!$userHasGame)
         <form class="float-right m-0" method="POST" action="{{route('me.games.add')}}">
-           @csrf
-            <div class="from-row">
-                <input type="hidden" name="gameId" value="{{$game->id}}">
-                <button type="submit" class="btn btn-primary mb-2">Dodaj do mojej listy</button>
-            </div>
-        </form>
+            @csrf
+             <div class="from-row">
+                 <input type="hidden" name="gameId" value="{{$game->id}}">
+                 <button type="submit" class="btn btn-primary mb-2">Dodaj do mojej listy</button>
+             </div>
+         </form>
+         @else
+         {{-- niby wyęle postem ale dzieki @method sprawdzi czy w route'ch nia znajduje się jakaś metoda delete --}}
+         <form class="float-right m-0" method="POST" action="{{route('me.games.remove')}}">
+            @method('delete') 
+            @csrf
+             <div class="from-row">
+                 <input type="hidden" name="gameId" value="{{$game->id}}">
+                 <button type="submit" class="btn btn-danger mb-2">Usuń z listy</button>
+             </div>
+         </form>
+        @endif
     </h5>
    
     <div class="card-body">
@@ -52,8 +64,8 @@
             <div class="mx-2">{!! $game->about !!}</div>
         </div>
 
-        {{-- <a href="{{ route('games.list') }}" class="btn btn-light">Lista gier</a> --}}
-        <a href="{{ url()->previous() }}" class="btn btn-light">Powrót</a>
+         <a href="{{ route('games.list') }}" class="btn btn-light">Lista gier</a>
+        {{-- <a href="{{ url()->previous() }}" class="btn btn-light">Powrót</a> --}}
     </div>
     @else
 
