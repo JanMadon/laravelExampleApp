@@ -27,13 +27,13 @@ class UserRepository implements RepositoryUserRepository
         $user->save();
     }
 
-    public function all(): Collection
+    public function all(): Collection //
     {
         
         return $this->userModel->get();
     }
 
-    public function get($id): User
+    public function get(int $id): User //
     {
         return $this->userModel->find($id);
     }

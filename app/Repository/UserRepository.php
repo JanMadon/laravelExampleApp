@@ -9,8 +9,8 @@ interface UserRepository
 {
     public function updateModel(User $user, array $data): void;
 
-    public function all(): Collection;
+    public function all(): Collection; // 
 
-    public function get($id): User;
+    public function get(int $id): User; // 
 
 }

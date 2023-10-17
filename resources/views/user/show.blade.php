@@ -5,10 +5,12 @@
 
 
     <ul>
-        <li>Id: {{$user['id']}}</li>
-        <li>Imię: {{$user['firstName']}}</li>
-        <li>Nazwisko: {{$user['lastName']}}</li>
-        <li>Miasto: {{$user['city']}}</li>
+        <li>Id: {{$user->id}}</li>
+        <li>Imię: {{$user->name}}</li>
+        <li>Email: {{$user->email}}</li>
+        <li>Telefon: {{$user->phone}}</li>
+
+
         <li>Wiek: {{$user['age']}}
             @if ($user['age'] >=18)
                 <div>Osoba dorosła</div>
