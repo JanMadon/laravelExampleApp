@@ -48,8 +48,8 @@ class User extends Authenticatable
     public function games()
     {
         return $this->belongsToMany(Game::class, 'userGames')
-                ->withPivot('rate') // bez tego wyciąga tylko dane z modelu game
-                ->with('genres');
+            ->withPivot('rate') // bez tego wyciąga tylko dane z modelu game
+            ->with('genres');
     }
 
     public function addGame(Game $game): void
@@ -74,5 +74,10 @@ class User extends Authenticatable
     public function rateGame(Game $game, int $rate)
     {
         $this->games()->updateExistingPivot($game, ['rate' => $rate]);
+    }
+
+    public function isAdmin(): bool
+    {
+        return (bool) $this->admin;
     }
 }

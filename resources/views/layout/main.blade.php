@@ -55,11 +55,16 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Panel</div>
+                            @can('admin-level')                                
+                            <div class="sb-sidenav-menu-heading">Panel - adminstratora</div>
                             <a class="nav-link" href="{{route('get.users')}}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
                                 Użytkownicy
                             </a>
+                            @endcan
+
+
+                            <div class="sb-sidenav-menu-heading">Panel - uzytkownika</div>
                             <a class="nav-link" href="{{route('me.profile')}}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
                                 Mój profil
