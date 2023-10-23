@@ -53,7 +53,13 @@ class UserController extends Controller
     public function show(int $userId)
     {
         Gate::authorize('admin-level');
-        $user = $this->userRepository->get($userId);
-        return view('user.show', ['user' => $user, 'nick' => "cos"]);
+
+        $userModel = $this->userRepository->get($userId);
+
+        // niby Gete a to korzysta z polices
+        Gate::authorize('view', $userModel); // view to jest nazwa metody w klasie Policies/UserPolices.php
+
+        return view('user.show', ['user' => $this->userRepository->get($userId),
+         'nick' => "cos"]);
     }
 }
