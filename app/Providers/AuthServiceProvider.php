@@ -28,7 +28,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         
         Gate::define('admin-level', function (User $user) {
-            
+           // return false;
             //if($user->isAdmin()) {
             //if(false) {
             //     return Response::allow();

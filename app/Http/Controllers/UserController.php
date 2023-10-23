@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Repository\UserRepository;
 use Faker\Factory;
 use Illuminate\Http\Request;
@@ -50,14 +51,30 @@ class UserController extends Controller
         ]);
     }
 
-    public function show(int $userId)
+    // autoryzacja przez model uzytkownika należy wstrzyknoć request    
+    public function show(Request $request, int $userId)
     {
-        Gate::authorize('admin-level');
+
+        $user = $request->user();
+
+        //if (!$user->can('admin-level')) {
+        // if ($user->cannot('admin-level')) {
+        //     abort(403);
+        // }
+
+        
+        //$this->authorize('admin-level');// to dziala identycznie jak Gate::authorize('admin-level');  
+
+
+        //dd($request->user());
+
+        //Gate::authorize('admin-level');
 
         $userModel = $this->userRepository->get($userId);
 
-        // niby Gete a to korzysta z polices
+        // niby Gete a to korzysta z polices(ta polityka pozwoli na syswietlenie szczegoów tylko zalogowanemu uzytkownikowi)
         Gate::authorize('view', $userModel); // view to jest nazwa metody w klasie Policies/UserPolices.php
+        //$this->authorize('create', User::class);
 
         return view('user.show', ['user' => $this->userRepository->get($userId),
          'nick' => "cos"]);

@@ -35,7 +35,8 @@ Route::group(['middleware' => 'auth'], function () {
         ->name('get.users');
 
     Route::get('/users/{userId}', 'UserController@show')
-        ->name('get.user.show');
+        ->name('get.user.show')
+        ->middleware('can:admin-level'); // tak moża również skorzystać z autoryzacji
 
     // GAMES queryBilder
     Route::group([

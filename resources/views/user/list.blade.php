@@ -24,11 +24,14 @@
                                 <td>{{$user['id']}}</td>
                                 <td>{{$user['name']}}</td>
                                 <td>
+                                    @can('view', $user)
                                     <a href={{
                                         route('get.user.show',
                                         ['userId'=> $user['id']])
                                         }}> Szczeguły
-                                    </a>
+                                    </a>    
+                                    @endcan
+                                    
                                 </td>
 
                     </tr>
